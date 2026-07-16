@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 from typing import Any
 
 import voluptuous as vol
@@ -25,6 +26,8 @@ from .const import (
     DEVICE_TYPES,
     DOMAIN,
 )
+
+_LOGGER = logging.getLogger(__name__)
 
 # Step 1: single radio field to pick the device type.
 STEP_USER_DATA_SCHEMA = vol.Schema(
@@ -86,9 +89,11 @@ class AquascapeConfigFlow(ConfigFlow, domain=DOMAIN):
                 name = await client.async_get_device_name()
             except AquascapeAuthError:
                 errors["base"] = "invalid_auth"
-            except AquascapeApiError:
+            except AquascapeApiError as err:
+                _LOGGER.error("Cannot connect to Aquascape: %s", err)
                 errors["base"] = "cannot_connect"
             except Exception:  # noqa: BLE001
+                _LOGGER.exception("Unexpected error validating Aquascape auth key")
                 errors["base"] = "unknown"
             else:
                 # Each Smart Control Plug has its own token, so it identifies
