@@ -1,0 +1,47 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add an Aquascape device",
+        "description": "Select the type of device you want to add.",
+        "data": {
+          "device_type": "Device type"
+        }
+      },
+      "smart_control_plug": {
+        "title": "Smart Control Plug",
+        "description": "Enter the auth key for your Smart Control Plug.",
+        "data": {
+          "auth_key": "Auth key"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect",
+      "invalid_auth": "Invalid authentication",
+      "unknown": "Unexpected error"
+    },
+    "abort": {
+      "already_configured": "Device is already configured"
+    }
+  },
+  "selector": {
+    "device_type": {
+      "options": {
+        "smart_control_plug": "Smart Control Plug"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "ac_voltage": { "name": "AC voltage" },
+      "current": { "name": "Current" },
+      "active_power": { "name": "Active power" }
+    },
+    "switch": {
+      "switch_1": { "name": "Switch 1" },
+      "switch_2": { "name": "Switch 2" },
+      "switch_3": { "name": "Switch 3" }
+    }
+  }
+}
