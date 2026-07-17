@@ -1,15 +1,17 @@
 # Aquascape — Home Assistant integration
 
-A custom Home Assistant integration for aquascape/aquarium hardware.
+A custom Home Assistant integration for [Aquascape](https://smartcontrol.aquascapeinc.com)
+devices. Add your devices from the UI with their auth key and control/monitor them directly in Home Assistant.
 
-> Status: scaffold. The API client (`api.py`) is stubbed — wire it up to your
-> real device or service to bring the entities to life.
+## Supported devices
 
-## Features
+| Device | Entities |
+| --- | --- |
+| **Smart Control Plug** | 3 switches (Switch 1–3), AC voltage, Current, Active power, Connectivity |
+| **Smart Pond Thermometer** | Temperature, Connectivity |
 
-- UI config flow (Settings → Devices & Services → Add Integration → Aquascape)
-- `DataUpdateCoordinator` polling with a pluggable async API client
-- Platforms: `sensor`, `switch`,
+Every device also gets a **Connectivity** binary sensor reporting whether the
+hardware is actively online and communicating.
 
 ## Installation
 
@@ -26,15 +28,25 @@ Copy `custom_components/aquascape_ha` into your Home Assistant
 
 ## Configuration
 
-Add the integration from the UI and provide the device API key.
+1. Go to **Settings → Devices & Services → Add Integration → Aquascape**.
+2. Choose the device type (Smart Control Plug or Smart Pond Thermometer).
+3. Enter the device's **auth key** (token). It's validated against the API and
+   the device is named automatically.
 
-## Development
+Each device is identified by its own token, so the same device can't be added
+twice.
 
-The following are the pieces you'll flesh out from the stubs:
+### Options
 
-| File | What to implement |
-| --- | --- |
-| `api.py` | Real connection/auth check and data fetch/commands |
-| `coordinator.py` | Adjust the poll interval / data shape if needed |
-| `sensor.py` / `switch.py` / `light.py` | Add or rename entities to match your device |
-| `strings.json` + `translations/en.json` | Friendly names and flow copy |
+Use the integration's **Configure** button to set the **polling interval**
+(1–60 minutes, default 1). Changing it reloads the device and takes effect
+immediately.
+
+## How it works
+
+- On each poll the integration first calls `isHardwareConnected`. If the device
+  is offline it **skips the full state fetch**, saving API calls; the
+  Connectivity sensor reports "off" and the other entities show as unknown.
+- When online, it fetches the full device state and updates all entities.
+- Switch toggles are **optimistic** — the UI updates immediately and the next
+  poll confirms the real state.

@@ -9,6 +9,7 @@ from homeassistant.components.switch import SwitchEntity, SwitchEntityDescriptio
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
+from .const import CONF_DEVICE_TYPE, DEVICE_TYPE_SMART_CONTROL_PLUG
 from .coordinator import AquascapeConfigEntry, AquascapeDataUpdateCoordinator
 from .entity import AquascapeEntity
 
@@ -39,6 +40,8 @@ async def async_setup_entry(
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
     """Set up Aquascape switches from a config entry."""
+    if entry.data.get(CONF_DEVICE_TYPE) != DEVICE_TYPE_SMART_CONTROL_PLUG:
+        return
     coordinator = entry.runtime_data
     async_add_entities(
         AquascapeSwitch(coordinator, description) for description in SWITCHES

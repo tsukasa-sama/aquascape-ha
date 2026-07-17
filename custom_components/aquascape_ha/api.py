@@ -21,6 +21,7 @@ from aiohttp import ClientError, ClientSession
 from .const import (
     API_BASE_URL,
     API_GETALL_PATH,
+    API_HW_CONNECTED_PATH,
     API_META_PATH,
     API_UPDATE_PATH,
     META_INDEX_DEVICE_NAME,
@@ -119,6 +120,11 @@ class AquascapeApiClient:
         they care about.
         """
         return await self._async_request(self._url(API_GETALL_PATH))
+
+    async def async_get_hardware_connected(self) -> bool:
+        """Return whether the device is actively online and communicating."""
+        result = await self._async_request(self._url(API_HW_CONNECTED_PATH))
+        return result is True
 
     async def async_set_switch(self, switch_id: int, on: bool) -> None:
         """Turn a switch (1, 2, or 3) on or off.

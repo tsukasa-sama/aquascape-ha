@@ -14,6 +14,13 @@
         "data": {
           "auth_key": "Auth key"
         }
+      },
+      "smart_pond_thermometer": {
+        "title": "Smart Pond Thermometer",
+        "description": "Enter the auth key for your Smart Pond Thermometer.",
+        "data": {
+          "auth_key": "Auth key"
+        }
       }
     },
     "error": {
@@ -25,18 +32,36 @@
       "already_configured": "Device is already configured"
     }
   },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Aquascape options",
+        "data": {
+          "scan_interval": "Polling interval (minutes)"
+        },
+        "data_description": {
+          "scan_interval": "How often to poll the device (1–60 minutes)."
+        }
+      }
+    }
+  },
   "selector": {
     "device_type": {
       "options": {
-        "smart_control_plug": "Smart Control Plug"
+        "smart_control_plug": "Smart Control Plug",
+        "smart_pond_thermometer": "Smart Pond Thermometer"
       }
     }
   },
   "entity": {
+    "binary_sensor": {
+      "hardware_connected": { "name": "Connectivity" }
+    },
     "sensor": {
       "ac_voltage": { "name": "AC voltage" },
       "current": { "name": "Current" },
-      "active_power": { "name": "Active power" }
+      "active_power": { "name": "Active power" },
+      "temperature": { "name": "Temperature" }
     },
     "switch": {
       "switch_1": { "name": "Switch 1" },
