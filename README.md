@@ -18,7 +18,7 @@ hardware is actively online and communicating.
 ### HACS (custom repository)
 
 1. HACS → Integrations → ⋮ → Custom repositories.
-2. Add `https://github.com/travis-phillips/aquascape-ha` as an **Integration**.
+2. Add `https://github.com/tsukasa-sama/aquascape-ha` as an **Integration**.
 3. Install **Aquascape**, then restart Home Assistant.
 
 ### Manual
