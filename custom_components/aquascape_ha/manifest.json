@@ -1,11 +1,11 @@
 {
   "domain": "aquascape_ha",
   "name": "Aquascape",
-  "codeowners": ["@travis-phillips"],
+  "codeowners": ["@tsukasa-sama"],
   "config_flow": true,
-  "documentation": "https://github.com/travis-phillips/aquascape-ha",
+  "documentation": "https://github.com/tsukasa-sama/aquascape-ha",
   "iot_class": "local_polling",
-  "issue_tracker": "https://github.com/travis-phillips/aquascape-ha/issues",
+  "issue_tracker": "https://github.com/tsukasa-sama/aquascape-ha/issues",
   "requirements": [],
-  "version": "0.1.0"
+  "version": "0.1.1"
 }
