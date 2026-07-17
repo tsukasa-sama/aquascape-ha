@@ -88,12 +88,14 @@ class AquascapeApiClient:
         return f"{API_BASE_URL}{path}?token={quote(self._auth_key, safe='')}{extra}"
 
     async def _async_get_meta(self, index: int) -> dict[str, Any]:
-        """Fetch a single metadata record by index.
+        """Fetch a single metadata record by field id.
 
-        The index is appended as a bare query flag (e.g. `...&1`) to match the
-        API's expected URL shape.
+        The endpoint requires a `metaFieldId` query parameter (1 = DeviceName,
+        2 = DeviceOwner).
         """
-        return await self._async_request(self._url(API_META_PATH, f"&{index}"))
+        return await self._async_request(
+            self._url(API_META_PATH, f"&metaFieldId={index}")
+        )
 
     async def async_validate_connection(self) -> None:
         """Validate that the auth key works by fetching device metadata.
